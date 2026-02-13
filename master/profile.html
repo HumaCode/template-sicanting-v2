@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - SICANTING</title>
+    
+    <!-- Bootstrap 5.3.2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background Elements */
+        .bg-decoration {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(31, 163, 183, 0.05), rgba(13, 124, 138, 0.05));
+            animation: floatDecor 25s infinite ease-in-out;
+        }
+        
+        .decor-1 {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+        
+        .decor-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            left: -80px;
+            animation-delay: 8s;
+        }
+        
+        .decor-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: 10%;
+            animation-delay: 15s;
+        }
+        
+        @keyframes floatDecor {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+        }
+        
+        /* Sidebar Styles - Same as Dashboard */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 280px;
+            background: linear-gradient(180deg, #1fa3b7 0%, #0d7c8a 100%);
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .sidebar::-webkit-scrollbar { display: none; }
+        .sidebar { -ms-overflow-style: none; scrollbar-width: none; }
+        .sidebar.collapsed { width: 80px; }
+        
+        .sidebar-header {
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+        }
+        
+        .sidebar-logo-icon i {
+            font-size: 24px;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .sidebar-logo-text {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar.collapsed .sidebar-logo-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-label {
+            padding: 15px 20px 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar.collapsed .menu-label {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .menu-item {
+            margin: 4px 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s ease;
+        }
+        
+        .menu-link:hover::before { left: 0; }
+        .menu-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .menu-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-text {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+        
+        .sidebar.collapsed .menu-icon { margin-right: 0; }
+        .sidebar.collapsed .menu-link { justify-content: center; }
+        
+        .sidebar-footer {
+            margin-top: 20px;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .sidebar-footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar.collapsed .sidebar-footer-text {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        /* Topbar */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 70px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+        }
+        
+        .sidebar.collapsed ~ .main-wrapper .topbar { left: 80px; }
+        
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .menu-toggle {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.3);
+        }
+        
+        .menu-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(31, 163, 183, 0.4);
+        }
+        
+        .menu-toggle i { font-size: 20px; }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-menu { position: relative; }
+        
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-button:hover {
+            border-color: #1fa3b7;
+            background: white;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.15);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.2;
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: #6c757d;
+            line-height: 1.2;
+        }
+        
+        .user-chevron {
+            color: #6c757d;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        
+        .user-button.active .user-chevron {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-menu-custom {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 200px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001;
+        }
+        
+        .dropdown-menu-custom.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item-custom {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 4px;
+        }
+        
+        .dropdown-item-custom:first-child { margin-top: 8px; }
+        .dropdown-item-custom:last-child { margin-bottom: 8px; }
+        
+        .dropdown-item-custom:hover {
+            background: #f8f9fa;
+            color: #1fa3b7;
+        }
+        
+        .dropdown-item-custom i { font-size: 18px; }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 30px;
+            min-height: calc(100vh - 70px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .sidebar.collapsed ~ .main-wrapper .main-content {
+            margin-left: 80px;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb-custom {
+            background: white;
+            padding: 25px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 20px;
+        }
+        
+        .page-header-left { flex: 1; }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        
+        .page-description {
+            color: #6c757d;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .page-header-right { flex-shrink: 0; }
+        
+        .breadcrumb {
+            margin: 0;
+            background: none;
+            padding: 0;
+        }
+        
+        .breadcrumb-item {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-item.active {
+            color: #1fa3b7;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-item a {
+            color: #6c757d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-item a:hover { color: #1fa3b7; }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .page-title { font-size: 22px; }
+            .page-header-right { margin-top: 10px; }
+        }
+        
+        /* ============================================ */
+        /* STYLE CONTENT PROFILE */
+        /* ============================================ */
+        
+        .profile-container {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 25px;
+        }
+        
+        /* Profile Card */
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .profile-avatar-wrapper {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+        
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(31, 163, 183, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        .avatar-upload-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 3px solid white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .avatar-upload-btn:hover {
+            transform: scale(1.1);
+            background: #1fa3b7;
+        }
+        
+        .avatar-upload-btn i {
+            color: #1fa3b7;
+            font-size: 18px;
+        }
+        
+        .avatar-upload-btn:hover i {
+            color: white;
+        }
+        
+        .avatar-upload-btn input {
+            display: none;
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .profile-email {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .profile-role-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+        
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1fa3b7;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        
+        .profile-actions {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .btn-action-profile {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .btn-edit-profile {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.3);
+        }
+        
+        .btn-edit-profile:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(31, 163, 183, 0.4);
+        }
+        
+        .btn-logout-profile {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .btn-logout-profile:hover {
+            background: #ef4444;
+            color: white;
+        }
+        
+        /* Profile Content */
+        .profile-content {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        /* Custom Tabs */
+        .profile-tabs {
+            display: flex;
+            border-bottom: 2px solid #f0f0f0;
+            background: #f8f9fa;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .profile-tab {
+            flex: 1;
+            padding: 20px;
+            background: none;
+            border: none;
+            color: #6c757d;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .profile-tab::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-tab:hover {
+            color: #1fa3b7;
+            background: rgba(31, 163, 183, 0.05);
+        }
+        
+        .profile-tab.active {
+            color: #1fa3b7;
+            background: white;
+        }
+        
+        .profile-tab.active::after {
+            transform: scaleX(1);
+        }
+        
+        .tab-content-wrapper {
+            padding: 30px;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Form Styles */
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-section-title i {
+            color: #1fa3b7;
+            font-size: 20px;
+        }
+        
+        .form-label {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-control {
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #1fa3b7;
+            box-shadow: 0 0 0 0.2rem rgba(31, 163, 183, 0.15);
+        }
+        
+        .input-group-text {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            color: #6c757d;
+        }
+        
+        .input-group .form-control {
+            border-left: none;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .input-group .form-control:focus {
+            border-left: 2px solid #1fa3b7;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .btn-cancel {
+            background: #e9ecef;
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cancel:hover {
+            background: #dee2e6;
+        }
+        
+        .btn-save {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.3);
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(31, 163, 183, 0.4);
+        }
+        
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: 8px;
+        }
+        
+        .strength-bar {
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .strength-text {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .strength-weak .strength-fill {
+            width: 33%;
+            background: #ef4444;
+        }
+        
+        .strength-weak .strength-text {
+            color: #ef4444;
+        }
+        
+        .strength-medium .strength-fill {
+            width: 66%;
+            background: #f59e0b;
+        }
+        
+        .strength-medium .strength-text {
+            color: #f59e0b;
+        }
+        
+        .strength-strong .strength-fill {
+            width: 100%;
+            background: #22c55e;
+        }
+        
+        .strength-strong .strength-text {
+            color: #22c55e;
+        }
+        
+        /* Settings Toggle */
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+        
+        .settings-info {
+            flex: 1;
+        }
+        
+        .settings-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        
+        .settings-description {
+            font-size: 13px;
+            color: #6c757d;
+        }
+        
+        /* Custom Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 26px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        
+        .toggle-switch input:checked + .toggle-slider {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+        }
+        
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        
+        /* Activity Log */
+        .activity-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .activity-icon.login {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .activity-icon.update {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .activity-icon.password {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .activity-details {
+            flex: 1;
+        }
+        
+        .activity-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        
+        .activity-time {
+            font-size: 12px;
+            color: #6c757d;
+        }
+        
+        /* ============================================ */
+        /* END STYLE CONTENT PROFILE */
+        /* ============================================ */
+        
+        /* Footer */
+        .footer {
+            background: white;
+            padding: 25px 30px;
+            border-top: 1px solid #e9ecef;
+            margin-left: 280px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sidebar.collapsed ~ .main-wrapper .footer {
+            margin-left: 80px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .footer-text {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: #1fa3b7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #0d7c8a;
+        }
+        
+        /* Floating Action Button */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1002;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fab-container.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        
+        .fab-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(31, 163, 183, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .fab-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+        
+        .fab-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(31, 163, 183, 0.5);
+        }
+        
+        .fab-button:active {
+            transform: scale(0.95);
+        }
+        
+        /* Logout Modal */
+        .modal-content {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border: none;
+            padding: 20px 25px;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+        
+        .modal-body {
+            padding: 30px 25px;
+            text-align: center;
+        }
+        
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #ef4444;
+        }
+        
+        .modal-footer {
+            border: none;
+            padding: 0 25px 25px;
+            gap: 10px;
+        }
+        
+        .btn-logout {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+        }
+        
+        /* Modal Backdrop Custom */
+        .modal.show {
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-backdrop.show {
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-card {
+                position: relative;
+                top: 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar { left: -280px; }
+            .sidebar.show { left: 0; }
+            .sidebar.collapsed { left: -80px; }
+            .topbar { left: 0 !important; }
+            .main-content { margin-left: 0; }
+            .footer { margin-left: 0; }
+            .user-info { display: none; }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-tabs {
+                flex-direction: column;
+            }
+            
+            .profile-tab {
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .profile-tab::after {
+                bottom: 0;
+                height: 100%;
+                width: 2px;
+                right: -2px;
+                left: auto;
+            }
+        }
+        
+        /* Mobile Overlay */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-overlay { display: none; }
+            .mobile-overlay.show { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Decoration -->
+    <div class="bg-decoration">
+        <div class="decoration-circle decor-1"></div>
+        <div class="decoration-circle decor-2"></div>
+        <div class="decoration-circle decor-3"></div>
+    </div>
+    
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">
+                    <i class="bi bi-clipboard-data"></i>
+                </div>
+                <div class="sidebar-logo-text">SICANTING</div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <div class="menu-label">MASTER</div>
+            
+            <div class="menu-item">
+                <a href="dashboard.html" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-speedometer2"></i></span>
+                    <span class="menu-text">Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="users.html" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-people"></i></span>
+                    <span class="menu-text">Pengguna</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-recycle"></i></span>
+                    <span class="menu-text">Bank Sampah</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-diagram-3"></i></span>
+                    <span class="menu-text">Pokja</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-clipboard-pulse"></i></span>
+                    <span class="menu-text">Program IVA</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-diagram-2"></i></span>
+                    <span class="menu-text">Struktur</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-heart-pulse"></i></span>
+                    <span class="menu-text">Stunting</span>
+                </a>
+            </div>
+            
+            <div class="menu-label">DATA & LAPORAN</div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-file-text"></i></span>
+                    <span class="menu-text">Laporan Kegiatan</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-graph-up"></i></span>
+                    <span class="menu-text">Statistik</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-clipboard-data"></i></span>
+                    <span class="menu-text">Data Anggaran</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-calendar-event"></i></span>
+                    <span class="menu-text">Jadwal Kegiatan</span>
+                </a>
+            </div>
+            
+            <div class="menu-label">PENGATURAN</div>
+            
+            <div class="menu-item">
+                <a href="profile.html" class="menu-link active">
+                    <span class="menu-icon"><i class="bi bi-person-gear"></i></span>
+                    <span class="menu-text">Profil</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-shield-check"></i></span>
+                    <span class="menu-text">Keamanan</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-bell"></i></span>
+                    <span class="menu-text">Notifikasi</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-gear"></i></span>
+                    <span class="menu-text">Pengaturan Sistem</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-question-circle"></i></span>
+                    <span class="menu-text">Bantuan</span>
+                </a>
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="sidebar-footer-text">
+                <strong>SICANTING</strong><br>
+                <small>v1.0.0 © 2024</small>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            
+            <div class="topbar-right">
+                <div class="user-menu">
+                    <div class="user-button" id="userButton">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <div class="user-name">Admin User</div>
+                            <div class="user-role">Administrator</div>
+                        </div>
+                        <i class="bi bi-chevron-down user-chevron"></i>
+                    </div>
+                    
+                    <div class="dropdown-menu-custom" id="userDropdown">
+                        <a href="profile.html" class="dropdown-item-custom">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Profil Saya</span>
+                        </a>
+                        <a href="#" class="dropdown-item-custom" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Keluar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb-custom" data-aos="fade-down">
+                <div class="page-header">
+                    <div class="page-header-left">
+                        <h1 class="page-title">Profil Saya</h1>
+                        <p class="page-description">Kelola informasi profil dan pengaturan akun Anda</p>
+                    </div>
+                    <div class="page-header-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="dashboard.html"><i class="bi bi-house-door me-1"></i>Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Profil</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-container">
+                <!-- Profile Card -->
+                <div class="profile-card" data-aos="fade-right">
+                    <div class="profile-avatar-wrapper">
+                        <div class="profile-avatar">
+                            AD
+                        </div>
+                        <label class="avatar-upload-btn">
+                            <i class="bi bi-camera-fill"></i>
+                            <input type="file" accept="image/*">
+                        </label>
+                    </div>
+                    
+                    <h3 class="profile-name">Admin User</h3>
+                    <p class="profile-email">admin@sicanting.com</p>
+                    <span class="profile-role-badge">
+                        <i class="bi bi-shield-check me-1"></i>Administrator
+                    </span>
+                    
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <span class="stat-value">156</span>
+                            <span class="stat-label">Aktivitas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">48</span>
+                            <span class="stat-label">Kontribusi</span>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-actions">
+                        <button class="btn-action-profile btn-edit-profile" onclick="switchTab('info')">
+                            <i class="bi bi-pencil-square"></i>
+                            <span>Edit Profil</span>
+                        </button>
+                        <button class="btn-action-profile btn-logout-profile" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Keluar</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Profile Content -->
+                <div class="profile-content" data-aos="fade-left">
+                    <!-- Tabs -->
+                    <div class="profile-tabs">
+                        <button class="profile-tab active" onclick="switchTab('info')" data-tab="info">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Informasi Profil</span>
+                        </button>
+                        <button class="profile-tab" onclick="switchTab('password')" data-tab="password">
+                            <i class="bi bi-key"></i>
+                            <span>Keamanan</span>
+                        </button>
+                        <button class="profile-tab" onclick="switchTab('settings')" data-tab="settings">
+                            <i class="bi bi-gear"></i>
+                            <span>Pengaturan</span>
+                        </button>
+                        <button class="profile-tab" onclick="switchTab('activity')" data-tab="activity">
+                            <i class="bi bi-clock-history"></i>
+                            <span>Aktivitas</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content-wrapper">
+                        <!-- Info Tab -->
+                        <div class="tab-pane active" id="info-tab">
+                            <form id="profileForm">
+                                <div class="form-section">
+                                    <h4 class="form-section-title">
+                                        <i class="bi bi-person-badge"></i>
+                                        Informasi Pribadi
+                                    </h4>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="fullName" class="form-label">Nama Lengkap</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                                <input type="text" class="form-control" id="fullName" value="Admin User">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <label for="username" class="form-label">Username</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-at"></i></span>
+                                                <input type="text" class="form-control" id="username" value="adminuser">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                                <input type="email" class="form-control" id="email" value="admin@sicanting.com">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <label for="phone" class="form-label">No. Telepon</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-phone"></i></span>
+                                                <input type="tel" class="form-control" id="phone" value="081234567890">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="bio" class="form-label">Bio</label>
+                                            <textarea class="form-control" id="bio" rows="3">Administrator sistem SICANTING yang bertanggung jawab mengelola data dan informasi penting.</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-section">
+                                    <h4 class="form-section-title">
+                                        <i class="bi bi-geo-alt"></i>
+                                        Informasi Lokasi
+                                    </h4>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="address" class="form-label">Alamat</label>
+                                            <textarea class="form-control" id="address" rows="2">Jl. Contoh No. 123, Semarang</textarea>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="city" class="form-label">Kota/Kabupaten</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-buildings"></i></span>
+                                                <input type="text" class="form-control" id="city" value="Semarang">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <label for="province" class="form-label">Provinsi</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-map"></i></span>
+                                                <input type="text" class="form-control" id="province" value="Jawa Tengah">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="button" class="btn-cancel">Batal</button>
+                                    <button type="submit" class="btn-save">
+                                        <i class="bi bi-check-circle me-2"></i>Simpan Perubahan
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Password Tab -->
+                        <div class="tab-pane" id="password-tab">
+                            <form id="passwordForm">
+                                <div class="form-section">
+                                    <h4 class="form-section-title">
+                                        <i class="bi bi-shield-lock"></i>
+                                        Ganti Password
+                                    </h4>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="currentPassword" class="form-label">Password Saat Ini</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                                                <input type="password" class="form-control" id="currentPassword" placeholder="Masukkan password saat ini">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="newPassword" class="form-label">Password Baru</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-key"></i></span>
+                                                <input type="password" class="form-control" id="newPassword" placeholder="Minimal 8 karakter">
+                                            </div>
+                                            <div class="password-strength" id="passwordStrength" style="display: none;">
+                                                <div class="strength-bar">
+                                                    <div class="strength-fill"></div>
+                                                </div>
+                                                <div class="strength-text"></div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 mb-3">
+                                            <label for="confirmPassword" class="form-label">Konfirmasi Password Baru</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="bi bi-key-fill"></i></span>
+                                                <input type="password" class="form-control" id="confirmPassword" placeholder="Ulangi password baru">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        Password harus minimal 8 karakter dan mengandung kombinasi huruf besar, huruf kecil, angka, dan simbol.
+                                    </div>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="button" class="btn-cancel">Batal</button>
+                                    <button type="submit" class="btn-save">
+                                        <i class="bi bi-check-circle me-2"></i>Update Password
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <!-- Settings Tab -->
+                        <div class="tab-pane" id="settings-tab">
+                            <div class="form-section">
+                                <h4 class="form-section-title">
+                                    <i class="bi bi-bell"></i>
+                                    Notifikasi
+                                </h4>
+                                
+                                <div class="settings-item">
+                                    <div class="settings-info">
+                                        <div class="settings-title">Email Notifications</div>
+                                        <div class="settings-description">Terima notifikasi via email</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="settings-item">
+                                    <div class="settings-info">
+                                        <div class="settings-title">Push Notifications</div>
+                                        <div class="settings-description">Terima notifikasi push di browser</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="settings-item">
+                                    <div class="settings-info">
+                                        <div class="settings-title">Weekly Summary</div>
+                                        <div class="settings-description">Terima ringkasan mingguan aktivitas</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <h4 class="form-section-title">
+                                    <i class="bi bi-shield-check"></i>
+                                    Privasi & Keamanan
+                                </h4>
+                                
+                                <div class="settings-item">
+                                    <div class="settings-info">
+                                        <div class="settings-title">Two-Factor Authentication</div>
+                                        <div class="settings-description">Aktifkan autentikasi dua faktor</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                
+                                <div class="settings-item">
+                                    <div class="settings-info">
+                                        <div class="settings-title">Profile Visibility</div>
+                                        <div class="settings-description">Tampilkan profil ke pengguna lain</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn-save">
+                                    <i class="bi bi-check-circle me-2"></i>Simpan Pengaturan
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Activity Tab -->
+                        <div class="tab-pane" id="activity-tab">
+                            <div class="form-section">
+                                <h4 class="form-section-title">
+                                    <i class="bi bi-activity"></i>
+                                    Aktivitas Terbaru
+                                </h4>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon login">
+                                        <i class="bi bi-box-arrow-in-right"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">Login ke sistem</div>
+                                        <div class="activity-time">Hari ini, 14:30 WIB</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon update">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">Memperbarui data pengguna</div>
+                                        <div class="activity-time">Kemarin, 09:15 WIB</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon password">
+                                        <i class="bi bi-key"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">Mengganti password</div>
+                                        <div class="activity-time">3 hari yang lalu</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon login">
+                                        <i class="bi bi-box-arrow-in-right"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">Login ke sistem</div>
+                                        <div class="activity-time">5 hari yang lalu</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="activity-item">
+                                    <div class="activity-icon update">
+                                        <i class="bi bi-plus-circle"></i>
+                                    </div>
+                                    <div class="activity-details">
+                                        <div class="activity-title">Menambah data baru</div>
+                                        <div class="activity-time">1 minggu yang lalu</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2024 SICANTING - Sistem Informasi Catatan Penting. All rights reserved.
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Bantuan</a>
+                    <a href="#" class="footer-link">Privacy</a>
+                    <a href="#" class="footer-link">Terms</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Floating Action Button -->
+    <div class="fab-container" id="scrollToTop">
+        <button class="fab-button" title="Kembali ke Atas">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+    </div>
+    
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Keluar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-icon">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </div>
+                    <h5 class="mb-3">Apakah Anda yakin ingin keluar?</h5>
+                    <p class="text-muted mb-0">Anda akan dikembalikan ke halaman login.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn-logout" onclick="handleLogout()">Ya, Keluar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 50
+        });
+        
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        
+        menuToggle.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('show');
+                mobileOverlay.classList.toggle('show');
+            } else {
+                sidebar.classList.toggle('collapsed');
+            }
+        });
+        
+        mobileOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('show');
+            mobileOverlay.classList.remove('show');
+        });
+        
+        // User Dropdown Toggle
+        const userButton = document.getElementById('userButton');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        userButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userButton.classList.toggle('active');
+            userDropdown.classList.toggle('show');
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!userButton.contains(e.target) && !userDropdown.contains(e.target)) {
+                userButton.classList.remove('active');
+                userDropdown.classList.remove('show');
+            }
+        });
+        
+        document.querySelectorAll('.dropdown-item-custom').forEach(item => {
+            item.addEventListener('click', function() {
+                userButton.classList.remove('active');
+                userDropdown.classList.remove('show');
+            });
+        });
+        
+        // Tab Switching
+        function switchTab(tabName) {
+            // Remove active class from all tabs and panes
+            document.querySelectorAll('.profile-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.remove('active');
+            });
+            
+            // Add active class to selected tab and pane
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+        
+        // Password Strength Checker
+        const newPasswordInput = document.getElementById('newPassword');
+        const passwordStrength = document.getElementById('passwordStrength');
+        
+        if (newPasswordInput) {
+            newPasswordInput.addEventListener('input', function() {
+                const password = this.value;
+                
+                if (password.length === 0) {
+                    passwordStrength.style.display = 'none';
+                    return;
+                }
+                
+                passwordStrength.style.display = 'block';
+                
+                let strength = 0;
+                if (password.length >= 8) strength++;
+                if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+                if (password.match(/\d/)) strength++;
+                if (password.match(/[^a-zA-Z\d]/)) strength++;
+                
+                passwordStrength.className = 'password-strength';
+                
+                if (strength <= 2) {
+                    passwordStrength.classList.add('strength-weak');
+                    passwordStrength.querySelector('.strength-text').textContent = 'Lemah';
+                } else if (strength === 3) {
+                    passwordStrength.classList.add('strength-medium');
+                    passwordStrength.querySelector('.strength-text').textContent = 'Sedang';
+                } else {
+                    passwordStrength.classList.add('strength-strong');
+                    passwordStrength.querySelector('.strength-text').textContent = 'Kuat';
+                }
+            });
+        }
+        
+        // Profile Form Submit
+        const profileForm = document.getElementById('profileForm');
+        if (profileForm) {
+            profileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate save
+                alert('Profil berhasil diperbarui!');
+            });
+        }
+        
+        // Password Form Submit
+        const passwordForm = document.getElementById('passwordForm');
+        if (passwordForm) {
+            passwordForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (newPassword !== confirmPassword) {
+                    alert('Password baru dan konfirmasi password tidak cocok!');
+                    return;
+                }
+                
+                if (newPassword.length < 8) {
+                    alert('Password harus minimal 8 karakter!');
+                    return;
+                }
+                
+                // Simulate save
+                alert('Password berhasil diperbarui!');
+                passwordForm.reset();
+                passwordStrength.style.display = 'none';
+            });
+        }
+        
+        // Handle Logout
+        function handleLogout() {
+            const logoutBtn = document.querySelector('.btn-logout');
+            logoutBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Keluar...';
+            logoutBtn.disabled = true;
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1000);
+        }
+        
+        // Floating Action Button
+        const fabContainer = document.getElementById('scrollToTop');
+        const fabButton = document.querySelector('.fab-button');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            if (scrollTop > 300 || (scrollTop + windowHeight >= documentHeight - 100)) {
+                fabContainer.classList.add('show');
+            } else {
+                fabContainer.classList.remove('show');
+            }
+        });
+        
+        fabButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+                mobileOverlay.classList.remove('show');
+            }
+        });
+        
+        // Active menu item on click
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('show');
+                    mobileOverlay.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
