@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Halaman Tidak Ditemukan | SICANTING</title>
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        /* Hide scrollbar but keep functionality */
+        body::-webkit-scrollbar {
+            display: none;
+        }
+        
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            left: -100px;
+            animation: float1 20s infinite ease-in-out;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: -50px;
+            animation: float2 15s infinite ease-in-out;
+        }
+        
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            bottom: -50px;
+            left: 30%;
+            animation: float3 18s infinite ease-in-out;
+        }
+        
+        .shape-4 {
+            width: 250px;
+            height: 250px;
+            bottom: 20%;
+            right: 20%;
+            animation: float4 22s infinite ease-in-out;
+        }
+        
+        @keyframes float1 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(100px, -50px) rotate(90deg); }
+            50% { transform: translate(50px, 100px) rotate(180deg); }
+            75% { transform: translate(-50px, 50px) rotate(270deg); }
+        }
+        
+        @keyframes float2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-80px, 80px) scale(1.2); }
+            66% { transform: translate(50px, -50px) scale(0.8); }
+        }
+        
+        @keyframes float3 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(100px, -100px); }
+        }
+        
+        @keyframes float4 {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -80px) rotate(180deg); }
+        }
+        
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: particle-float 3s infinite ease-in-out;
+        }
+        
+        @keyframes particle-float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0;
+            }
+        }
+        
+        /* Main Container */
+        .error-container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .error-content {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Error Code with Animation */
+        .error-code-wrapper {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .error-code {
+            font-size: 180px;
+            font-weight: 800;
+            color: white;
+            line-height: 1;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: glitch 3s infinite;
+            position: relative;
+            display: inline-block;
+        }
+        
+        @keyframes glitch {
+            0%, 100% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-2px, 2px);
+            }
+            40% {
+                transform: translate(-2px, -2px);
+            }
+            60% {
+                transform: translate(2px, 2px);
+            }
+            80% {
+                transform: translate(2px, -2px);
+            }
+        }
+        
+        /* Animated Icon */
+        .error-icon-wrapper {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 40px;
+        }
+        
+        .error-icon {
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: bounce 2s infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .error-icon::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(200%) rotate(45deg);
+            }
+        }
+        
+        .error-icon i {
+            font-size: 100px;
+            color: white;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+        
+        /* Orbiting Dots */
+        .orbit-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .orbit-dot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            margin: -6px 0 0 -6px;
+        }
+        
+        .orbit-dot:nth-child(1) {
+            animation: orbit1 4s linear infinite;
+        }
+        
+        .orbit-dot:nth-child(2) {
+            animation: orbit2 4s linear infinite;
+        }
+        
+        .orbit-dot:nth-child(3) {
+            animation: orbit3 4s linear infinite;
+        }
+        
+        @keyframes orbit1 {
+            from {
+                transform: rotate(0deg) translateX(120px) rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg) translateX(120px) rotate(-360deg);
+            }
+        }
+        
+        @keyframes orbit2 {
+            from {
+                transform: rotate(120deg) translateX(120px) rotate(-120deg);
+            }
+            to {
+                transform: rotate(480deg) translateX(120px) rotate(-480deg);
+            }
+        }
+        
+        @keyframes orbit3 {
+            from {
+                transform: rotate(240deg) translateX(120px) rotate(-240deg);
+            }
+            to {
+                transform: rotate(600deg) translateX(120px) rotate(-600deg);
+            }
+        }
+        
+        /* Text Content */
+        .error-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .error-description {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            animation: fadeIn 1s ease-out 0.7s both;
+        }
+        
+        /* Suggestions List */
+        .suggestions-list {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            text-align: left;
+            animation: fadeIn 1s ease-out 0.9s both;
+        }
+        
+        .suggestions-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .suggestions-title i {
+            font-size: 24px;
+        }
+        
+        .suggestion-item {
+            padding: 12px 0;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+        
+        .suggestion-item:hover {
+            padding-left: 10px;
+            color: white;
+        }
+        
+        .suggestion-item i {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        /* Buttons */
+        .error-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease-out 1.1s both;
+        }
+        
+        .btn-error {
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-error::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .btn-error:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+        }
+        
+        .btn-error span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Footer Info */
+        .error-footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-out 1.3s both;
+        }
+        
+        .error-footer p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        
+        .error-footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .error-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 120px;
+            }
+            
+            .error-icon-wrapper {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .error-icon {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .error-icon i {
+                font-size: 70px;
+            }
+            
+            .orbit-dot {
+                display: none;
+            }
+            
+            .error-title {
+                font-size: 32px;
+            }
+            
+            .error-description {
+                font-size: 16px;
+            }
+            
+            .suggestions-list {
+                padding: 20px;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+            }
+            
+            .btn-error {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-height: 700px) {
+            .error-code {
+                font-size: 100px;
+            }
+            
+            .error-icon-wrapper {
+                width: 120px;
+                height: 120px;
+                margin-bottom: 20px;
+            }
+            
+            .error-icon {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .error-icon i {
+                font-size: 60px;
+            }
+            
+            .error-title {
+                font-size: 28px;
+                margin-bottom: 15px;
+            }
+            
+            .error-description {
+                font-size: 14px;
+                margin-bottom: 20px;
+            }
+            
+            .suggestions-list {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+            
+            .error-footer {
+                margin-top: 30px;
+                padding-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+    </div>
+    
+    <!-- Error Container -->
+    <div class="error-container">
+        <div class="error-content">
+            <!-- Error Code -->
+            <div class="error-code-wrapper">
+                <div class="error-code">404</div>
+            </div>
+            
+            <!-- Animated Icon -->
+            <div class="error-icon-wrapper">
+                <div class="error-icon">
+                    <i class="bi bi-compass"></i>
+                    
+                    <!-- Orbiting Dots -->
+                    <div class="orbit-container">
+                        <div class="orbit-dot"></div>
+                        <div class="orbit-dot"></div>
+                        <div class="orbit-dot"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Title -->
+            <h1 class="error-title">Halaman Tidak Ditemukan</h1>
+            
+            <!-- Description -->
+            <p class="error-description">
+                Maaf, halaman yang Anda cari tidak dapat ditemukan. Halaman mungkin telah dipindahkan atau dihapus.
+            </p>
+            
+            <!-- Suggestions -->
+            <div class="suggestions-list">
+                <h3 class="suggestions-title">
+                    <i class="bi bi-lightbulb"></i>
+                    Beberapa saran untuk Anda:
+                </h3>
+                <div class="suggestion-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Periksa kembali URL yang Anda masukkan</span>
+                </div>
+                <div class="suggestion-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Kembali ke halaman sebelumnya dan coba lagi</span>
+                </div>
+                <div class="suggestion-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Kunjungi halaman beranda untuk memulai dari awal</span>
+                </div>
+                <div class="suggestion-item">
+                    <i class="bi bi-check-circle"></i>
+                    <span>Hubungi administrator jika Anda yakin ini adalah kesalahan</span>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="error-actions">
+                <a href="dashboard.html" class="btn-error btn-primary">
+                    <i class="bi bi-house-door"></i>
+                    <span>Kembali ke Beranda</span>
+                </a>
+                <button class="btn-error btn-secondary" onclick="history.back()">
+                    <i class="bi bi-arrow-left"></i>
+                    <span>Halaman Sebelumnya</span>
+                </button>
+            </div>
+            
+            <!-- Footer -->
+            <div class="error-footer">
+                <p>Kode Error: <strong>404 - Not Found</strong></p>
+                <p>Butuh bantuan? <a href="#">Hubungi Support</a></p>
+                <p style="margin-top: 15px; font-size: 12px;">© 2024 SICANTING - Sistem Informasi Catatan Penting</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const bg = document.querySelector('.animated-bg');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 3 + 's';
+                particle.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                bg.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles
+        createParticles();
+        
+        // Add interactive hover effect to icon
+        const errorIcon = document.querySelector('.error-icon');
+        errorIcon.addEventListener('mousemove', (e) => {
+            const rect = errorIcon.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            errorIcon.style.transform = `perspective(1000px) rotateY(${x / 10}deg) rotateX(${-y / 10}deg)`;
+        });
+        
+        errorIcon.addEventListener('mouseleave', () => {
+            errorIcon.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+        });
+        
+        // Smooth scroll behavior
+        document.documentElement.style.scrollBehavior = 'smooth';
+    </script>
+</body>
+</html>

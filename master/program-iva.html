@@ -1,0 +1,2251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program IVA - SICANTING</title>
+    
+    <!-- Bootstrap 5.3.2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background Elements */
+        .bg-decoration {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(31, 163, 183, 0.05), rgba(13, 124, 138, 0.05));
+            animation: floatDecor 25s infinite ease-in-out;
+        }
+        
+        .decor-1 {
+            width: 400px;
+            height: 400px;
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+        
+        .decor-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -150px;
+            left: -80px;
+            animation-delay: 8s;
+        }
+        
+        .decor-3 {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            right: 10%;
+            animation-delay: 15s;
+        }
+        
+        @keyframes floatDecor {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+        }
+        
+        /* Sidebar Styles - Same as Dashboard */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 280px;
+            background: linear-gradient(180deg, #1fa3b7 0%, #0d7c8a 100%);
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .sidebar::-webkit-scrollbar { display: none; }
+        .sidebar { -ms-overflow-style: none; scrollbar-width: none; }
+        .sidebar.collapsed { width: 80px; }
+        
+        .sidebar-header {
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+        }
+        
+        .sidebar-logo-icon i {
+            font-size: 24px;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .sidebar-logo-text {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar.collapsed .sidebar-logo-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-label {
+            padding: 15px 20px 8px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar.collapsed .menu-label {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .menu-item {
+            margin: 4px 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .menu-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s ease;
+        }
+        
+        .menu-link:hover::before { left: 0; }
+        .menu-link:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .menu-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .menu-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-right: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .menu-text {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar.collapsed .menu-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+        
+        .sidebar.collapsed .menu-icon { margin-right: 0; }
+        .sidebar.collapsed .menu-link { justify-content: center; }
+        
+        .sidebar-footer {
+            margin-top: 20px;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .sidebar-footer-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar.collapsed .sidebar-footer-text {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        /* Topbar */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 70px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+        }
+        
+        .sidebar.collapsed ~ .main-wrapper .topbar { left: 80px; }
+        
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .menu-toggle {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.3);
+        }
+        
+        .menu-toggle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 16px rgba(31, 163, 183, 0.4);
+        }
+        
+        .menu-toggle i { font-size: 20px; }
+        
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-menu { position: relative; }
+        
+        .user-button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-button:hover {
+            border-color: #1fa3b7;
+            background: white;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.15);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1.2;
+        }
+        
+        .user-role {
+            font-size: 12px;
+            color: #6c757d;
+            line-height: 1.2;
+        }
+        
+        .user-chevron {
+            color: #6c757d;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        
+        .user-button.active .user-chevron {
+            transform: rotate(180deg);
+        }
+        
+        .dropdown-menu-custom {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 200px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001;
+        }
+        
+        .dropdown-menu-custom.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-item-custom {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            margin: 4px;
+        }
+        
+        .dropdown-item-custom:first-child { margin-top: 8px; }
+        .dropdown-item-custom:last-child { margin-bottom: 8px; }
+        
+        .dropdown-item-custom:hover {
+            background: #f8f9fa;
+            color: #1fa3b7;
+        }
+        
+        .dropdown-item-custom i { font-size: 18px; }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 30px;
+            min-height: calc(100vh - 70px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .sidebar.collapsed ~ .main-wrapper .main-content {
+            margin-left: 80px;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb-custom {
+            background: white;
+            padding: 25px 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+        }
+        
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 20px;
+        }
+        
+        .page-header-left { flex: 1; }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        
+        .page-description {
+            color: #6c757d;
+            font-size: 14px;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .page-header-right { flex-shrink: 0; }
+        
+        .breadcrumb {
+            margin: 0;
+            background: none;
+            padding: 0;
+        }
+        
+        .breadcrumb-item {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .breadcrumb-item.active {
+            color: #1fa3b7;
+            font-weight: 500;
+        }
+        
+        .breadcrumb-item a {
+            color: #6c757d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-item a:hover { color: #1fa3b7; }
+        
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .page-title { font-size: 22px; }
+            .page-header-right { margin-top: 10px; }
+        }
+        
+        /* ============================================ */
+        /* STYLE CONTENT PROGRAM IVA */
+        /* ============================================ */
+        
+        .iva-toolbar {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .toolbar-left {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-box {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #1fa3b7;
+            box-shadow: 0 0 0 0.2rem rgba(31, 163, 183, 0.15);
+        }
+        
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            font-size: 16px;
+        }
+        
+        .toolbar-right {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-add-iva {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.3);
+        }
+        
+        .btn-add-iva:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(31, 163, 183, 0.4);
+        }
+        
+        .btn-filter {
+            background: white;
+            color: #333;
+            border: 2px solid #e9ecef;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .btn-filter:hover {
+            border-color: #1fa3b7;
+            color: #1fa3b7;
+        }
+        
+        .btn-filter.active {
+            background: #1fa3b7;
+            color: white;
+            border-color: #1fa3b7;
+        }
+        
+        /* Filter Panel */
+        .filter-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            display: none;
+        }
+        
+        .filter-panel.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .filter-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-title i {
+            color: #1fa3b7;
+            font-size: 18px;
+        }
+        
+        .btn-reset-filter {
+            background: #fee2e2;
+            color: #991b1b;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-reset-filter:hover {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .filter-body {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .filter-item label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .filter-item select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-item select:focus {
+            outline: none;
+            border-color: #1fa3b7;
+        }
+        
+        /* IVA Table */
+        .iva-table-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+        
+        .table-responsive { overflow-x: auto; }
+        
+        .iva-table {
+            width: 100%;
+            margin: 0;
+        }
+        
+        .iva-table thead {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+        }
+        
+        .iva-table thead th {
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 15px;
+            border: none;
+            white-space: nowrap;
+        }
+        
+        .iva-table tbody td {
+            padding: 15px;
+            vertical-align: middle;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .iva-table tbody tr {
+            transition: all 0.3s ease;
+        }
+        
+        .iva-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .iva-image-thumb {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #e0f2f7, #b3e5f0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .iva-image-thumb i {
+            font-size: 24px;
+            color: #1fa3b7;
+        }
+        
+        .iva-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+        
+        .iva-description {
+            font-size: 12px;
+            color: #6c757d;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .badge-status {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .badge-status.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .badge-status.inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .badge-status i { font-size: 8px; }
+        
+        .badge-category {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .badge-category.pencegahan {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+        }
+        
+        .badge-category.pemeriksaan {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+        }
+        
+        .badge-category.edukasi {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .btn-action.edit {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .btn-action.edit:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-action.delete {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        
+        .btn-action.delete:hover {
+            background: #ef4444;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn-action.view {
+            background: #f0fdf4;
+            color: #166534;
+        }
+        
+        .btn-action.view:hover {
+            background: #22c55e;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* Pagination */
+        .pagination-wrapper {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .pagination-info {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .pagination-controls {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        
+        .pagination-controls button {
+            min-width: 36px;
+            height: 36px;
+            border: 2px solid #e9ecef;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            color: #333;
+            padding: 0 12px;
+        }
+        
+        .pagination-controls button:hover:not(:disabled) {
+            border-color: #1fa3b7;
+            color: #1fa3b7;
+        }
+        
+        .pagination-controls button.active {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border-color: #1fa3b7;
+        }
+        
+        .pagination-controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-controls .separator {
+            color: #6c757d;
+            padding: 0 5px;
+        }
+        
+        /* ============================================ */
+        /* MODAL STYLES */
+        /* ============================================ */
+        
+        .modal-content {
+            border: none;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border: none;
+            padding: 20px 25px;
+        }
+        
+        .modal-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+        
+        .modal-body {
+            padding: 25px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        
+        .modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .modal-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #1fa3b7;
+            border-radius: 10px;
+        }
+        
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #0d7c8a;
+        }
+        
+        .modal-footer {
+            border: none;
+            padding: 20px 25px;
+            gap: 10px;
+            background: #f8f9fa;
+        }
+        
+        .form-label {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-label .text-danger {
+            color: #ef4444;
+        }
+        
+        .form-control {
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #1fa3b7;
+            box-shadow: 0 0 0 0.2rem rgba(31, 163, 183, 0.15);
+        }
+        
+        /* ============================================ */
+        /* STYLE SELECT2 */
+        /* ============================================ */
+        
+        .select2-container--default .select2-selection--single {
+            height: 46px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 8px 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .select2-container--default .select2-selection--single:focus,
+        .select2-container--default.select2-container--open .select2-selection--single {
+            border-color: #1fa3b7;
+            box-shadow: 0 0 0 0.2rem rgba(31, 163, 183, 0.15);
+        }
+        
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 28px;
+            padding-left: 0;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .select2-container--default .select2-selection--single .select2-selection__placeholder {
+            color: #6c757d;
+        }
+        
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 42px;
+            right: 10px;
+        }
+        
+        .select2-container--default .select2-selection--single .select2-selection__arrow b {
+            border-color: #6c757d transparent transparent transparent;
+            border-width: 6px 5px 0 5px;
+        }
+        
+        .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+            border-color: transparent transparent #1fa3b7 transparent;
+            border-width: 0 5px 6px 5px;
+        }
+        
+        .select2-dropdown {
+            border: 2px solid #1fa3b7;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.15);
+            margin-top: 4px;
+        }
+        
+        .select2-container--default .select2-results__option {
+            padding: 10px 15px;
+            font-size: 14px;
+        }
+        
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+        }
+        
+        .select2-container--default .select2-results__option[aria-selected=true] {
+            background: #e0f2f7;
+            color: #0d7c8a;
+        }
+        
+        .select2-container--default .select2-search--dropdown .select2-search__field {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+        }
+        
+        .select2-container--default .select2-search--dropdown .select2-search__field:focus {
+            border-color: #1fa3b7;
+            outline: none;
+        }
+        
+        /* ============================================ */
+        /* END STYLE SELECT2 */
+        /* ============================================ */
+        
+        .btn-cancel {
+            background: #e9ecef;
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cancel:hover {
+            background: #dee2e6;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(31, 163, 183, 0.3);
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(31, 163, 183, 0.4);
+        }
+        
+        /* ============================================ */
+        /* SWEETALERT2 CUSTOM THEME */
+        /* ============================================ */
+        
+        .swal2-popup {
+            border-radius: 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .swal2-title {
+            color: #333;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .swal2-html-container {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .swal2-confirm {
+            background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+            border-radius: 10px !important;
+            font-weight: 500 !important;
+            padding: 12px 30px !important;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+        }
+        
+        .swal2-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4) !important;
+        }
+        
+        .swal2-cancel {
+            background: #e9ecef !important;
+            color: #333 !important;
+            border-radius: 10px !important;
+            font-weight: 500 !important;
+            padding: 12px 30px !important;
+        }
+        
+        .swal2-cancel:hover {
+            background: #dee2e6 !important;
+        }
+        
+        .swal2-icon.swal2-warning {
+            border-color: #1fa3b7 !important;
+            color: #1fa3b7 !important;
+        }
+        
+        /* ============================================ */
+        /* END STYLE CONTENT PROGRAM IVA */
+        /* ============================================ */
+        
+        /* Footer */
+        .footer {
+            background: white;
+            padding: 25px 30px;
+            border-top: 1px solid #e9ecef;
+            margin-left: 280px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .sidebar.collapsed ~ .main-wrapper .footer {
+            margin-left: 80px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .footer-text {
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .footer-link {
+            color: #1fa3b7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: #0d7c8a;
+        }
+        
+        /* Floating Action Button */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1002;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .fab-container.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        
+        .fab-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1fa3b7, #0d7c8a);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(31, 163, 183, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .fab-button::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.95);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+        }
+        
+        .fab-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(31, 163, 183, 0.5);
+        }
+        
+        .fab-button:active {
+            transform: scale(0.95);
+        }
+        
+        /* Logout Modal */
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #ef4444;
+        }
+        
+        .btn-logout {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
+        }
+        
+        /* Modal Backdrop Custom */
+        .modal.show {
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-backdrop.show {
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { left: -280px; }
+            .sidebar.show { left: 0; }
+            .sidebar.collapsed { left: -80px; }
+            .topbar { left: 0 !important; }
+            .main-content { margin-left: 0; }
+            .footer { margin-left: 0; }
+            .user-info { display: none; }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .iva-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .toolbar-left { min-width: 100%; }
+            .search-box { max-width: 100%; }
+            
+            .toolbar-right {
+                justify-content: space-between;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .filter-body {
+                grid-template-columns: 1fr;
+            }
+            
+            .pagination-wrapper {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+        
+        /* Mobile Overlay */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .mobile-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-overlay { display: none; }
+            .mobile-overlay.show { display: block; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Decoration -->
+    <div class="bg-decoration">
+        <div class="decoration-circle decor-1"></div>
+        <div class="decoration-circle decor-2"></div>
+        <div class="decoration-circle decor-3"></div>
+    </div>
+    
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">
+                    <i class="bi bi-clipboard-data"></i>
+                </div>
+                <div class="sidebar-logo-text">SICANTING</div>
+            </div>
+        </div>
+        
+        <nav class="sidebar-menu">
+            <div class="menu-label">MASTER</div>
+            
+            <div class="menu-item">
+                <a href="dashboard.html" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-speedometer2"></i></span>
+                    <span class="menu-text">Dashboard</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="users.html" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-people"></i></span>
+                    <span class="menu-text">Pengguna</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-recycle"></i></span>
+                    <span class="menu-text">Bank Sampah</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="pokja.html" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-diagram-3"></i></span>
+                    <span class="menu-text">Pokja</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="program-iva.html" class="menu-link active">
+                    <span class="menu-icon"><i class="bi bi-clipboard-pulse"></i></span>
+                    <span class="menu-text">Program IVA</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-diagram-2"></i></span>
+                    <span class="menu-text">Struktur</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-heart-pulse"></i></span>
+                    <span class="menu-text">Stunting</span>
+                </a>
+            </div>
+            
+            <div class="menu-label">DATA & LAPORAN</div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-file-text"></i></span>
+                    <span class="menu-text">Laporan Kegiatan</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-graph-up"></i></span>
+                    <span class="menu-text">Statistik</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-clipboard-data"></i></span>
+                    <span class="menu-text">Data Anggaran</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-calendar-event"></i></span>
+                    <span class="menu-text">Jadwal Kegiatan</span>
+                </a>
+            </div>
+            
+            <div class="menu-label">PENGATURAN</div>
+            
+            <div class="menu-item">
+                <a href="profile.html" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-person-gear"></i></span>
+                    <span class="menu-text">Profil</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-shield-check"></i></span>
+                    <span class="menu-text">Keamanan</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-bell"></i></span>
+                    <span class="menu-text">Notifikasi</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-gear"></i></span>
+                    <span class="menu-text">Pengaturan Sistem</span>
+                </a>
+            </div>
+            
+            <div class="menu-item">
+                <a href="#" class="menu-link">
+                    <span class="menu-icon"><i class="bi bi-question-circle"></i></span>
+                    <span class="menu-text">Bantuan</span>
+                </a>
+            </div>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="sidebar-footer-text">
+                <strong>SICANTING</strong><br>
+                <small>v1.0.0 © 2024</small>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+        <!-- Topbar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            
+            <div class="topbar-right">
+                <div class="user-menu">
+                    <div class="user-button" id="userButton">
+                        <div class="user-avatar">AD</div>
+                        <div class="user-info">
+                            <div class="user-name">Admin User</div>
+                            <div class="user-role">Administrator</div>
+                        </div>
+                        <i class="bi bi-chevron-down user-chevron"></i>
+                    </div>
+                    
+                    <div class="dropdown-menu-custom" id="userDropdown">
+                        <a href="profile.html" class="dropdown-item-custom">
+                            <i class="bi bi-person-circle"></i>
+                            <span>Profil Saya</span>
+                        </a>
+                        <a href="#" class="dropdown-item-custom" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>Keluar</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="breadcrumb-custom" data-aos="fade-down">
+                <div class="page-header">
+                    <div class="page-header-left">
+                        <h1 class="page-title">Program IVA</h1>
+                        <p class="page-description">Kelola data Program Inspeksi Visual dengan Asam Asetat (IVA)</p>
+                    </div>
+                    <div class="page-header-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="dashboard.html"><i class="bi bi-house-door me-1"></i>Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Program IVA</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Toolbar -->
+            <div class="iva-toolbar" data-aos="fade-up" data-aos-delay="100">
+                <div class="toolbar-left">
+                    <div class="search-box">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Cari program..." id="searchInput">
+                    </div>
+                </div>
+                <div class="toolbar-right">
+                    <button class="btn-filter" id="btnFilter">
+                        <i class="bi bi-funnel"></i>
+                        <span>Filter</span>
+                    </button>
+                    <button class="btn-add-iva" data-bs-toggle="modal" data-bs-target="#addIvaModal">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Tambah Program</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Filter Panel -->
+            <div class="filter-panel" id="filterPanel" data-aos="fade-up" data-aos-delay="150">
+                <div class="filter-header">
+                    <div class="filter-title">
+                        <i class="bi bi-sliders"></i>
+                        <span>Filter Data</span>
+                    </div>
+                    <button class="btn-reset-filter" onclick="resetFilter()">
+                        <i class="bi bi-x-circle me-1"></i>Reset Filter
+                    </button>
+                </div>
+                <div class="filter-body">
+                    <div class="filter-item">
+                        <label>Kategori</label>
+                        <select id="filterCategory" onchange="applyFilter()">
+                            <option value="">Semua Kategori</option>
+                            <option value="pencegahan">Pencegahan</option>
+                            <option value="pemeriksaan">Pemeriksaan</option>
+                            <option value="edukasi">Edukasi</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>Status</label>
+                        <select id="filterStatus" onchange="applyFilter()">
+                            <option value="">Semua Status</option>
+                            <option value="active">Aktif</option>
+                            <option value="inactive">Tidak Aktif</option>
+                        </select>
+                    </div>
+                    <div class="filter-item">
+                        <label>Tahun</label>
+                        <select id="filterYear" onchange="applyFilter()">
+                            <option value="">Semua Tahun</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- IVA Table -->
+            <div class="iva-table-container" data-aos="fade-up" data-aos-delay="200">
+                <div class="table-responsive">
+                    <table class="iva-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Gambar</th>
+                                <th>Program</th>
+                                <th>Kategori</th>
+                                <th>Status</th>
+                                <th>Tanggal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ivaTableBody">
+                            <tr data-category="pemeriksaan" data-status="active" data-year="2024">
+                                <td>1</td>
+                                <td>
+                                    <div class="iva-image-thumb">
+                                        <i class="bi bi-clipboard-pulse"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="iva-title">Pemeriksaan IVA Gratis</div>
+                                    <div class="iva-description">Program pemeriksaan IVA gratis untuk deteksi dini kanker serviks pada perempuan usia produktif</div>
+                                </td>
+                                <td><span class="badge-category pemeriksaan">Pemeriksaan</span></td>
+                                <td><span class="badge-status active"><i class="bi bi-circle-fill"></i>Aktif</span></td>
+                                <td>10 Jan 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action view" title="Lihat Detail">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action delete" title="Hapus" onclick="deleteIva('Pemeriksaan IVA Gratis')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-category="edukasi" data-status="active" data-year="2024">
+                                <td>2</td>
+                                <td>
+                                    <div class="iva-image-thumb">
+                                        <i class="bi bi-book"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="iva-title">Sosialisasi Kesehatan Reproduksi</div>
+                                    <div class="iva-description">Edukasi dan sosialisasi tentang pentingnya kesehatan reproduksi wanita</div>
+                                </td>
+                                <td><span class="badge-category edukasi">Edukasi</span></td>
+                                <td><span class="badge-status active"><i class="bi bi-circle-fill"></i>Aktif</span></td>
+                                <td>15 Jan 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action view" title="Lihat Detail">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action delete" title="Hapus" onclick="deleteIva('Sosialisasi Kesehatan Reproduksi')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-category="pencegahan" data-status="active" data-year="2024">
+                                <td>3</td>
+                                <td>
+                                    <div class="iva-image-thumb">
+                                        <i class="bi bi-shield-check"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="iva-title">Vaksinasi HPV</div>
+                                    <div class="iva-description">Program vaksinasi HPV untuk pencegahan kanker serviks pada remaja putri</div>
+                                </td>
+                                <td><span class="badge-category pencegahan">Pencegahan</span></td>
+                                <td><span class="badge-status active"><i class="bi bi-circle-fill"></i>Aktif</span></td>
+                                <td>20 Jan 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action view" title="Lihat Detail">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action delete" title="Hapus" onclick="deleteIva('Vaksinasi HPV')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-category="pemeriksaan" data-status="inactive" data-year="2023">
+                                <td>4</td>
+                                <td>
+                                    <div class="iva-image-thumb">
+                                        <i class="bi bi-hospital"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="iva-title">Klinik IVA Mobile</div>
+                                    <div class="iva-description">Layanan klinik IVA keliling untuk menjangkau daerah terpencil</div>
+                                </td>
+                                <td><span class="badge-category pemeriksaan">Pemeriksaan</span></td>
+                                <td><span class="badge-status inactive"><i class="bi bi-circle-fill"></i>Tidak Aktif</span></td>
+                                <td>05 Des 2023</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action view" title="Lihat Detail">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action delete" title="Hapus" onclick="deleteIva('Klinik IVA Mobile')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-category="edukasi" data-status="active" data-year="2024">
+                                <td>5</td>
+                                <td>
+                                    <div class="iva-image-thumb">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="iva-title">Penyuluhan Deteksi Dini Kanker</div>
+                                    <div class="iva-description">Penyuluhan tentang pentingnya deteksi dini kanker serviks di masyarakat</div>
+                                </td>
+                                <td><span class="badge-category edukasi">Edukasi</span></td>
+                                <td><span class="badge-status active"><i class="bi bi-circle-fill"></i>Aktif</span></td>
+                                <td>25 Jan 2024</td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <button class="btn-action view" title="Lihat Detail">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn-action edit" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                        <button class="btn-action delete" title="Hapus" onclick="deleteIva('Penyuluhan Deteksi Dini Kanker')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination-wrapper" data-aos="fade-up" data-aos-delay="250">
+                <div class="pagination-info">
+                    Menampilkan 1 - 5 dari 25 data
+                </div>
+                <div class="pagination-controls">
+                    <button disabled>
+                        <i class="bi bi-chevron-double-left"></i>
+                    </button>
+                    <button disabled>
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <span class="separator">...</span>
+                    <button>5</button>
+                    <button>
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                    <button>
+                        <i class="bi bi-chevron-double-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-text">
+                    © 2024 SICANTING - Sistem Informasi Catatan Penting. All rights reserved.
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Bantuan</a>
+                    <a href="#" class="footer-link">Privacy</a>
+                    <a href="#" class="footer-link">Terms</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Floating Action Button -->
+    <div class="fab-container" id="scrollToTop">
+        <button class="fab-button" title="Kembali ke Atas">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+    </div>
+    
+    <!-- Add IVA Modal -->
+    <div class="modal fade" id="addIvaModal" tabindex="-1" aria-labelledby="addIvaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addIvaModalLabel">
+                        <i class="bi bi-clipboard-pulse-fill me-2"></i>Tambah Program IVA
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addIvaForm">
+                        <div class="row">
+                            <!-- Judul Program -->
+                            <div class="col-md-12 mb-3">
+                                <label for="ivaTitle" class="form-label">
+                                    Judul Program <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="ivaTitle" placeholder="Masukkan judul program" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- Kategori -->
+                            <div class="col-md-6 mb-3">
+                                <label for="ivaCategory" class="form-label">
+                                    Kategori <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="ivaCategory" required>
+                                    <option value="">Pilih Kategori</option>
+                                    <option value="pencegahan">Pencegahan</option>
+                                    <option value="pemeriksaan">Pemeriksaan</option>
+                                    <option value="edukasi">Edukasi</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Status -->
+                            <div class="col-md-6 mb-3">
+                                <label for="ivaStatus" class="form-label">
+                                    Status <span class="text-danger">*</span>
+                                </label>
+                                <select class="form-select" id="ivaStatus" required>
+                                    <option value="">Pilih Status</option>
+                                    <option value="active">Aktif</option>
+                                    <option value="inactive">Tidak Aktif</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- Deskripsi -->
+                            <div class="col-md-12 mb-3">
+                                <label for="ivaDescription" class="form-label">
+                                    Deskripsi <span class="text-danger">*</span>
+                                </label>
+                                <textarea class="form-control" id="ivaDescription" rows="4" placeholder="Masukkan deskripsi program" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <!-- Tanggal -->
+                            <div class="col-md-6 mb-3">
+                                <label for="ivaDate" class="form-label">
+                                    Tanggal <span class="text-danger">*</span>
+                                </label>
+                                <input type="date" class="form-control" id="ivaDate" required>
+                            </div>
+                            
+                            <!-- Gambar -->
+                            <div class="col-md-6 mb-3">
+                                <label for="ivaImage" class="form-label">
+                                    Gambar
+                                </label>
+                                <input type="file" class="form-control" id="ivaImage" accept="image/*">
+                                <small class="text-muted">Format: JPG, PNG, maksimal 2MB</small>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn-submit" onclick="submitIva()">
+                        <i class="bi bi-check-circle me-2"></i>Simpan Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Keluar</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="modal-icon">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </div>
+                    <h5 class="mb-3">Apakah Anda yakin ingin keluar?</h5>
+                    <p class="text-muted mb-0">Anda akan dikembalikan ke halaman login.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn-logout" onclick="handleLogout()">Ya, Keluar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- jQuery (Required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.5/dist/sweetalert2.all.min.js"></script>
+    
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            offset: 50
+        });
+        
+        // Initialize Select2
+        $(document).ready(function() {
+            $('#ivaCategory, #ivaStatus').select2({
+                dropdownParent: $('#addIvaModal'),
+                placeholder: function() {
+                    return $(this).find('option:first').text();
+                },
+                allowClear: true,
+                width: '100%'
+            });
+        });
+        
+        // Sidebar Toggle
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        
+        menuToggle.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('show');
+                mobileOverlay.classList.toggle('show');
+            } else {
+                sidebar.classList.toggle('collapsed');
+            }
+        });
+        
+        mobileOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('show');
+            mobileOverlay.classList.remove('show');
+        });
+        
+        // User Dropdown Toggle
+        const userButton = document.getElementById('userButton');
+        const userDropdown = document.getElementById('userDropdown');
+        
+        userButton.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userButton.classList.toggle('active');
+            userDropdown.classList.toggle('show');
+        });
+        
+        document.addEventListener('click', function(e) {
+            if (!userButton.contains(e.target) && !userDropdown.contains(e.target)) {
+                userButton.classList.remove('active');
+                userDropdown.classList.remove('show');
+            }
+        });
+        
+        document.querySelectorAll('.dropdown-item-custom').forEach(item => {
+            item.addEventListener('click', function() {
+                userButton.classList.remove('active');
+                userDropdown.classList.remove('show');
+            });
+        });
+        
+        // Filter Panel Toggle
+        const btnFilter = document.getElementById('btnFilter');
+        const filterPanel = document.getElementById('filterPanel');
+        
+        btnFilter.addEventListener('click', function() {
+            filterPanel.classList.toggle('show');
+            btnFilter.classList.toggle('active');
+        });
+        
+        // Apply Filter Function
+        function applyFilter() {
+            const category = document.getElementById('filterCategory').value;
+            const status = document.getElementById('filterStatus').value;
+            const year = document.getElementById('filterYear').value;
+            
+            const rows = document.querySelectorAll('#ivaTableBody tr');
+            
+            rows.forEach(row => {
+                const rowCategory = row.getAttribute('data-category');
+                const rowStatus = row.getAttribute('data-status');
+                const rowYear = row.getAttribute('data-year');
+                
+                let showRow = true;
+                
+                if (category && rowCategory !== category) showRow = false;
+                if (status && rowStatus !== status) showRow = false;
+                if (year && rowYear !== year) showRow = false;
+                
+                row.style.display = showRow ? '' : 'none';
+            });
+        }
+        
+        // Reset Filter Function
+        function resetFilter() {
+            document.getElementById('filterCategory').value = '';
+            document.getElementById('filterStatus').value = '';
+            document.getElementById('filterYear').value = '';
+            
+            const rows = document.querySelectorAll('#ivaTableBody tr');
+            rows.forEach(row => {
+                row.style.display = '';
+            });
+        }
+        
+        // Handle Logout
+        function handleLogout() {
+            const logoutBtn = document.querySelector('.btn-logout');
+            logoutBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Keluar...';
+            logoutBtn.disabled = true;
+            
+            setTimeout(() => {
+                window.location.href = 'login.html';
+            }, 1000);
+        }
+        
+        // Floating Action Button
+        const fabContainer = document.getElementById('scrollToTop');
+        const fabButton = document.querySelector('.fab-button');
+        
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            
+            if (scrollTop > 300 || (scrollTop + windowHeight >= documentHeight - 100)) {
+                fabContainer.classList.add('show');
+            } else {
+                fabContainer.classList.remove('show');
+            }
+        });
+        
+        fabButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const tableRows = document.querySelectorAll('#ivaTableBody tr');
+            
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+        
+        // Submit IVA Form
+        function submitIva() {
+            const form = document.getElementById('addIvaForm');
+            
+            if (form.checkValidity()) {
+                const submitBtn = event.target;
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Menyimpan...';
+                submitBtn.disabled = true;
+                
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: 'Data Program IVA berhasil ditambahkan',
+                        confirmButtonText: 'OK',
+                        confirmButtonColor: '#1fa3b7'
+                    });
+                    
+                    form.reset();
+                    $('#ivaCategory, #ivaStatus').val(null).trigger('change');
+                    
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('addIvaModal'));
+                    modal.hide();
+                    
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            } else {
+                form.reportValidity();
+            }
+        }
+        
+        // Delete IVA dengan SweetAlert2
+        function deleteIva(ivaName) {
+            Swal.fire({
+                title: 'Hapus Program IVA?',
+                html: `Anda yakin ingin menghapus program <strong>${ivaName}</strong>?<br><small class="text-muted">Data yang sudah dihapus tidak dapat dikembalikan.</small>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Menghapus...',
+                        text: 'Mohon tunggu sebentar',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    
+                    setTimeout(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Terhapus!',
+                            text: 'Program IVA berhasil dihapus',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#1fa3b7'
+                        });
+                    }, 1500);
+                }
+            });
+        }
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+                mobileOverlay.classList.remove('show');
+            }
+        });
+        
+        // Active menu item on click
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+                
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('show');
+                    mobileOverlay.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
