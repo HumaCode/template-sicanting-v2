@@ -1243,16 +1243,7 @@
         }
         
         /* Responsive */
-        @media (max-width: 992px) {
-            .profile-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .profile-card {
-                position: relative;
-                top: 0;
-            }
-        }
+        
         
         @media (max-width: 768px) {
             .sidebar { left: -280px; }
@@ -1308,6 +1299,265 @@
             .mobile-overlay { display: none; }
             .mobile-overlay.show { display: block; }
         }
+    
+        
+        /* ============================================ */
+        /* IMPROVED RESPONSIVE DESIGN */
+        /* ============================================ */
+        
+        /* Tablet Landscape - 992px to 1200px */
+        @media (max-width: 1200px) {
+            .profile-container {
+                grid-template-columns: 300px 1fr;
+                gap: 20px;
+            }
+            
+            .profile-card {
+                padding: 25px;
+            }
+            
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+                font-size: 40px;
+            }
+            
+            .profile-avatar-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+        }
+        
+        /* Tablet Portrait - 768px to 992px */
+        @media (max-width: 992px) and (min-width: 769px) {
+            .profile-container {
+                grid-template-columns: 280px 1fr;
+                gap: 15px;
+            }
+            
+            .profile-card {
+                padding: 20px;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 36px;
+            }
+            
+            .profile-avatar-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-name {
+                font-size: 20px;
+            }
+            
+            .profile-stats {
+                gap: 10px;
+            }
+            
+            .stat-value {
+                font-size: 20px;
+            }
+            
+            /* Tabs tetap horizontal di tablet */
+            .profile-tabs {
+                flex-wrap: wrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .profile-tab {
+                padding: 15px 12px;
+                font-size: 13px;
+                min-width: 100px;
+                flex: 0 0 auto;
+            }
+            
+            .profile-tab i {
+                margin-right: 6px;
+                font-size: 16px;
+            }
+        }
+        
+        /* Mobile - Below 768px */
+        @media (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 0 15px;
+            }
+            
+            .profile-card {
+                padding: 25px 20px;
+                position: relative;
+                top: 0;
+                margin-bottom: 15px;
+            }
+            
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 36px;
+                border-radius: 16px;
+            }
+            
+            .profile-avatar-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile-name {
+                font-size: 20px;
+            }
+            
+            .profile-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-value {
+                font-size: 20px;
+            }
+            
+            /* Tabs Mobile - Scrollable Horizontal */
+            .profile-tabs {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
+                border-bottom: 2px solid #f0f0f0;
+                background: #f8f9fa;
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE/Edge */
+            }
+            
+            .profile-tabs::-webkit-scrollbar {
+                display: none; /* Chrome/Safari */
+            }
+            
+            .profile-tab {
+                flex: 0 0 auto;
+                min-width: 110px;
+                padding: 15px 12px;
+                white-space: nowrap;
+                border-bottom: none;
+                border-right: 1px solid #f0f0f0;
+            }
+            
+            .profile-tab:last-child {
+                border-right: none;
+            }
+            
+            .profile-tab i {
+                display: inline-block;
+                margin-right: 6px;
+                font-size: 14px;
+            }
+            
+            .profile-tab::after {
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                width: 100%;
+            }
+            
+            .profile-tab.active::after {
+                transform: scaleX(1);
+            }
+            
+            /* Tab Content Mobile */
+            .tab-content {
+                padding: 20px 15px;
+            }
+            
+            .profile-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn-action-profile {
+                padding: 14px;
+            }
+        }
+        
+        /* Small Mobile - Below 480px */
+        @media (max-width: 480px) {
+            .profile-container {
+                padding: 0 10px;
+            }
+            
+            .profile-card {
+                padding: 20px 15px;
+            }
+            
+            .profile-avatar {
+                width: 90px;
+                height: 90px;
+                font-size: 32px;
+            }
+            
+            .profile-avatar-wrapper {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .avatar-upload-btn {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .avatar-upload-btn i {
+                font-size: 16px;
+            }
+            
+            .profile-name {
+                font-size: 18px;
+            }
+            
+            .profile-email {
+                font-size: 13px;
+            }
+            
+            .profile-role-badge {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .stat-value {
+                font-size: 18px;
+            }
+            
+            .stat-label {
+                font-size: 11px;
+            }
+            
+            .profile-tab {
+                min-width: 100px;
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+            
+            .profile-tab i {
+                font-size: 13px;
+            }
+            
+            .tab-content {
+                padding: 15px 10px;
+            }
+        }
+        
+        /* ============================================ */
+        /* END IMPROVED RESPONSIVE DESIGN */
+        /* ============================================ */
+
     </style>
 </head>
 <body>
@@ -1528,7 +1778,7 @@
                     </div>
                     
                     <h3 class="profile-name">Admin User</h3>
-                    <p class="profile-email">admin@sicanting.com</p>
+                    <p class="profile-email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2647424b4f4866554f454748524f48410845494b">[email&#160;protected]</a></p>
                     <span class="profile-role-badge">
                         <i class="bi bi-shield-check me-1"></i>Administrator
                     </span>
@@ -1920,10 +2170,52 @@
     </div>
     
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
+        
+        // ============================================
+        // TABS SCROLL FOR MOBILE
+        // ============================================
+        
+        // Auto scroll active tab into view on mobile
+        function scrollActiveTabIntoView() {
+            const activeTab = document.querySelector('.profile-tab.active');
+            const tabsContainer = document.querySelector('.profile-tabs');
+            
+            if (activeTab && tabsContainer && window.innerWidth <= 768) {
+                // Calculate scroll position to center the active tab
+                const tabLeft = activeTab.offsetLeft;
+                const tabWidth = activeTab.offsetWidth;
+                const containerWidth = tabsContainer.offsetWidth;
+                const scrollLeft = tabLeft - (containerWidth / 2) + (tabWidth / 2);
+                
+                tabsContainer.scrollTo({
+                    left: scrollLeft,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        // Call on page load
+        window.addEventListener('load', scrollActiveTabIntoView);
+        
+        // Call on window resize
+        window.addEventListener('resize', scrollActiveTabIntoView);
+        
+        // Call when tab is clicked
+        document.querySelectorAll('.profile-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                setTimeout(scrollActiveTabIntoView, 100);
+            });
+        });
+        
+        // ============================================
+        // END TABS SCROLL
+        // ============================================
+        
+    </script>
     
     <script>
         // Initialize AOS
@@ -2107,16 +2399,31 @@
                 mobileOverlay.classList.remove('show');
             }
         });
-        
         // Active menu item on click
         document.querySelectorAll('.menu-link').forEach(link => {
             link.addEventListener('click', function(e) {
+                // Remove active class from all links
                 document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+                // Add active class to clicked link
                 this.classList.add('active');
                 
+                // On mobile, close sidebar after clicking menu
                 if (window.innerWidth <= 768) {
                     sidebar.classList.remove('show');
                     mobileOverlay.classList.remove('show');
+                }
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && document.querySelector(href)) {
+                    e.preventDefault();
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 }
             });
         });
